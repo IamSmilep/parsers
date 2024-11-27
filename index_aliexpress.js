@@ -1,9 +1,6 @@
 const links = [
-    'https://aliexpress.ru/item/1005003571974003.html',
-    'https://aliexpress.ru/item/1005003571974003.html?sku_id=12000034752422272',
-    'https://aliexpress.ru/item/1005003571974003.html?sku_id=12000034752422268',
-    'https://aliexpress.ru/item/1005003571974003.html?sku_id=12000034156956313',
-    'https://aliexpress.ru/item/1005005853953314.html',
+    'https://aliexpress.ru/item/1005007383923208.html',
+    'https://aliexpress.ru/item/1005007369756529.html'
 ]
 const csvFile = 'example.csv';
 
@@ -19,12 +16,13 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 function fetchDataAndAppend() {
     AliexpressScrapper.getGoodInfo(links)
         .then(res => {
+            console.log("[" + new Date().toLocaleString() + "]" + res.toString())
             const goods = [];
             res.forEach((price, index) => {
                 goods.push({
                     link: links[index],
                     price: price,
-                    date: new Date(Date.now()).toLocaleString()
+                    date: new Date().toLocaleString()
                 });
             });
             console.log(goods);
@@ -39,7 +37,7 @@ function fetchDataAndAppend() {
 fetchDataAndAppend();
 
 // Schedule subsequent runs every hour
-const interval = 60 * 60 * 1000; // 1 hour in milliseconds
+const interval = 30 * 60 * 1000; // in milliseconds
 setInterval(fetchDataAndAppend, interval);
 
 
